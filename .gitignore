@@ -1,0 +1,50 @@
+# Dependencies
+**/node_modules/
+**/.pnp/
+**/.pnp.js
+
+# Build output
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+**/.svelte-kit/
+**/out/
+
+# Caches
+**/.cache/
+**/.parcel-cache/
+**/.turbo/
+**/.vite/
+**/.webpack/
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+**/*.log
+
+# Tests / coverage
+**/coverage/
+**/.nyc_output/
+
+# Env files (keep an .env.example in repo instead)
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+.vscode/
+.idea/
+
+# Runtime data
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
