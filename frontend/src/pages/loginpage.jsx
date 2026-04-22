@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../components/formInput";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,9 +29,13 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/login", form);
+      const res = await axios.post("http://localhost:5000/api/login",form);
+
       localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+
     } catch (err) {
+      console.log(err.response?.data || err.message);
       alert("Login failed");
     }
   };
