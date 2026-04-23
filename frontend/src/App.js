@@ -1,19 +1,39 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/loginpage";
 import Dashboard from "./pages/Dashboard";
+import EditEmployee from "./pages/editEmployee";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const { isAuthenticated } = useAuth();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={token ? <Navigate to="/dashboard" /> : <Login />}
-        />
+        <Route path="/" element={<Login />} />
+
+        
         <Route
           path="/dashboard"
-          element={token ? <Dashboard /> : <Navigate to="/" />}
+          element={
+            isAuthenticated ? (
+              <Dashboard />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+       
+        <Route
+          path="/edit/:id"
+          element={
+            isAuthenticated ? (
+              <EditEmployee />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
       </Routes>
     </BrowserRouter>

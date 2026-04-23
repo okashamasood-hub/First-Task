@@ -1,12 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/formInput";
+import API from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,11 +31,14 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/login",form);
+      const res = await API.post("/login", form);
 
-      localStorage.setItem("token", res.data.token);
+      login({
+        token: res.data.token,
+        user: res.data.user
+      });
+
       navigate("/dashboard");
-
     } catch (err) {
       console.log(err.response?.data || err.message);
       alert("Login failed");
@@ -75,7 +80,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
           >
             Login
           </button>
